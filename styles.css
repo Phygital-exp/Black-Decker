@@ -103,7 +103,7 @@ video {
 /* Overlay para textos y QR en cada escena de video */
 .overlay-content {
   position: absolute;
-  bottom: 8%;
+  bottom: 5%;
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
@@ -111,6 +111,20 @@ video {
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
   padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.overlay-content2 {
+  position: absolute;
+  bottom: 5%;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 60px;
   border-radius: 10px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
@@ -146,12 +160,16 @@ video {
 /* Contenedor y estilo del QR */
 /* Aquí definimos un tamaño mayor para que sea más legible */
 .qr-container {
-  margin-top: 5px;
+  position: absolute;   /* Antes estaba sin position */
+  right: 30px;          /* Ajusta el valor según quieras */
+  bottom: 40px;         /* O top: 10px, según prefieras */
+  margin: 0;            /* Para evitar márgenes que te descuadren */
+  /* Tamaño del QR */
+  width: 150px;
+  height: 150px;
 }
 
+
 .qr-code {
-  width: 150px;
-  top: 50;
-  height: 150px;
   margin: 0 auto 10px auto;
 }
