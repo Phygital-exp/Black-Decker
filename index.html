@@ -1,23 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Test Fondo</title>
-  <style>
-    body, html {
-      margin: 0; 
-      padding: 0; 
-      height: 100%;
-    }
-    /* Contenedor ocupando toda la ventana */
-    #escena2 {
-      width: 100%;
-      height: 100%;
-      background: url("https://s3.amazonaws.com/botgen/Uploads/partes_1738729196.jpg") center/cover no-repeat;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" 
+        content="width=device-width, 
+                 initial-scale=1.0, 
+                 maximum-scale=1.0, 
+                 user-scalable=no, 
+                 viewport-fit=cover" />
+  <title>Experiencia Black+Decker Digits</title>
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="escena2"></div>
+  <div class="container">
+
+    <!-- ESCENA 1 - Intro (video con audio, sin muted) -->
+    <div class="escena active" id="escena1">
+      <video id="introVideo" autoplay loop playsinline>
+        <source src="https://s3.amazonaws.com/botgen/Uploads/DIGITS%20V04%20(1)_1738729055.mp4" type="video/mp4">
+      </video>
+      <!-- Botón para pasar a la Escena 2 -->
+      <button class="btn-experiencia" id="btnIniciar">Vivir la experiencia</button>
+    </div>
+
+    <!-- ESCENA 2 - Menú principal (con imagen de fondo) -->
+    <div class="escena" id="escena2">
+      <div class="grid-botones">
+        <button class="grid-btn" data-target="ventajas">Ventajas del producto</button>
+        <button class="grid-btn" data-target="funcionalidades">Funcionalidades</button>
+        <button class="grid-btn" data-target="estiloVida">Estilo de vida</button>
+        <button class="grid-btn" data-target="receta">Receta sorpresa</button>
+      </div>
+    </div>
+
+    <!-- ESCENA 3 - Ventajas del producto -->
+    <div class="escena" id="ventajas">
+      <video id="videoVentajas" playsinline>
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena21ventaja_1738750430.mp4" type="video/mp4">
+      </video>
+      <div class="overlay-content">
+        <h2>Ventajas del producto</h2>
+        <!-- Botón "Volver" para regresar al menú (Escena 2) -->
+        <button class="btn-volver">Volver</button>
+      </div>
+    </div>
+
+    <!-- ESCENA 4 - Funcionalidades -->
+    <div class="escena" id="funcionalidades">
+      <video id="videoFuncionalidades" playsinline>
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena22funcionalidades_1738750629.mp4" type="video/mp4">
+      </video>
+      <div class="overlay-content">
+        <h2>Funcionalidades</h2>
+        <button class="btn-volver">Volver</button>
+      </div>
+    </div>
+
+    <!-- ESCENA 5 - Estilo de vida -->
+    <div class="escena" id="estiloVida">
+      <video id="videoEstiloVida" playsinline>
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena23estilo_1738750880.mp4" type="video/mp4">
+      </video>
+      <div class="overlay-content">
+        <h2>Estilo de vida</h2>
+        <div class="qr-container">
+          <!-- QR para más info -->
+          <div class="qr-code" id="qrEstiloVida"></div>
+          <p>Para más información</p>
+        </div>
+        <button class="btn-volver">Volver</button>
+      </div>
+    </div>
+
+    <!-- ESCENA 6 - Receta sorpresa -->
+    <div class="escena" id="receta">
+      <video id="videoReceta" playsinline>
+        <source src="https://s3.amazonaws.com/botgen/Uploads/DIGITS%20V04%20(1)_1738729055.mp4" type="video/mp4">
+      </video>
+      <div class="overlay-content">
+        <h2>Receta</h2>
+        <button class="btn-volver">Volver</button>
+      </div>
+    </div>
+
+  </div>
+  
+  <!-- Librería QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <!-- Script principal -->
+  <script src="main.js"></script>
 </body>
 </html>
