@@ -55,7 +55,7 @@ video {
 /* Botón en la escena 1 (intro) */
 .btn-experiencia {
   position: absolute;
-  top: 80%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 15px 30px;
@@ -71,7 +71,7 @@ video {
 
 /* ESCENA 2 - Menú de 4 botones con imagen de fondo */
 #escena2 {
-  background: #000 url("https://s3.amazonaws.com/botgen/Uploads/partes_1738729196.jpg") 
+  background: #000 url("https://s3.amazonaws.com/botgen/Uploads/partes2_1738754099.jpg") 
               center/cover no-repeat;
 }
 
@@ -146,11 +146,12 @@ video {
 /* Contenedor y estilo del QR */
 /* Aquí definimos un tamaño mayor para que sea más legible */
 .qr-container {
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .qr-code {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  top: 50;
+  height: 150px;
   margin: 0 auto 10px auto;
 }
