@@ -10,7 +10,7 @@ const SCENE_INACTIVITY_LIMITS = {
   escena2: 15000,         // 15 seg menú
   ventajas: 70000,        // 70 seg Ventajas
   funcionalidades: 65000, // 65 seg Funcionalidades
-  estiloVida: 40000,      // 40 seg Estilo de vida
+  estiloVida: 30000,      // 30 seg Estilo de vida
   receta: 70000           // 70 seg Receta
 };
 
