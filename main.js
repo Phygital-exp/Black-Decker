@@ -1,26 +1,42 @@
 /*********************************
  * main.js
- * - Control de escenas, reproducción de videos,
- *   timeout de inactividad y generación de QR.
+ * Manejo de escenas, reproducción de videos,
+ * y timeout de inactividad por escena.
  *********************************/
 
-// Variable global para timeout de inactividad
+// 1. Definir los tiempos de inactividad para cada escena (en milisegundos).
+const SCENE_INACTIVITY_LIMITS = {
+  escena1: 70000,         // 70 seg en la intro
+  escena2: 30000,         // 30 seg menú
+  ventajas: 80000,        // 80 seg Ventajas
+  funcionalidades: 80000, // 80 seg Funcionalidades
+  estiloVida: 40000,      // 40 seg Estilo de vida
+  receta: 30000           // 30 seg Receta
+};
+
+// 2. Variables globales
 let inactivityTimer = null;
+let currentScene = 'escena1'; // Empezamos en escena1
 
 document.addEventListener('DOMContentLoaded', () => {
-  // No forzamos video.play() aquí, 
-  // pues en mute ya se reproducirá solo sin bloqueo.
+  // Intentar reproducir con audio en la Escena 1 (puede ser bloqueado en algunos navegadores).
+  const introVideo = document.getElementById('introVideo');
+  if (introVideo) {
+    introVideo.play().catch(err => console.warn('Autoplay con audio bloqueado:', err));
+  }
 
-  // Detectar interacción para resetear el temporizador de inactividad
+  // Detectar interacción para resetear la inactividad
   ['click', 'touchstart', 'mousemove', 'keydown'].forEach(evt => {
     document.addEventListener(evt, resetInactivityTimer);
   });
 
-  // Botón "Vivir la experiencia" => pasa a Escena 2
-  document.getElementById('btnIniciar')
-          .addEventListener('click', () => {
-            switchScene('escena1', 'escena2');
-          });
+  // Botón para pasar a Escena 2
+  const btnIniciar = document.getElementById('btnIniciar');
+  if (btnIniciar) {
+    btnIniciar.addEventListener('click', () => {
+      switchScene('escena1', 'escena2');
+    });
+  }
 
   // Botones del menú (Escena 2)
   document.querySelectorAll('.grid-btn').forEach(btn => {
@@ -31,27 +47,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Generar los QRs en cada escena
+  // Botones "Volver" en las escenas
+  document.querySelectorAll('.btn-volver').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Regresa a Escena 2 (el menú)
+      switchScene(currentScene, 'escena2');
+    });
+  });
+
+  // Generar QRs
   generateAllQRCodes();
 
-  // Iniciar la vigilancia de inactividad
+  // Iniciar timer de inactividad (escena1)
   resetInactivityTimer();
 });
 
 /**
- * Cambia de una escena a otra
- * @param {string} from - Escena que se oculta
- * @param {string} to   - Escena que se muestra
+ * Cambia de una escena a otra.
  */
 function switchScene(from, to) {
-  document.getElementById(from).classList.remove('active');
-  document.getElementById(to).classList.add('active');
+  // Pausar todos los videos para que no se queden sonando
+  pauseAllVideos();
+
+  // Quitar 'active' de la escena anterior
+  document.getElementById(from)?.classList.remove('active');
+  // Mostrar la escena nueva
+  document.getElementById(to)?.classList.add('active');
+
+  currentScene = to;
   resetInactivityTimer();
 }
 
 /**
- * Reproduce el video de la escena dada y, 
- * cuando termina, si pasan 15s sin interacción => volver a intro.
+ * Pausa todos los videos del DOM
+ */
+function pauseAllVideos() {
+  document.querySelectorAll('video').forEach(video => {
+    video.pause();
+    video.currentTime = 0;
+  });
+}
+
+/**
+ * Reproduce el video de la escena dada
  */
 function playSceneVideo(sceneId) {
   const scene = document.getElementById(sceneId);
@@ -59,59 +97,63 @@ function playSceneVideo(sceneId) {
 
   const video = scene.querySelector('video');
   if (video) {
-    // Empezar el video desde cero
     video.currentTime = 0;
     video.play().catch(err => console.warn(err));
-
-    // Al terminar el video, se inicia el conteo de 15s de inactividad
-    video.onended = () => {
-      resetInactivityTimer(); 
-      inactivityTimer = setTimeout(() => {
-        goToIntro();
-      }, 15000);
-    };
   }
 }
 
 /**
- * Genera los QRs de cada sección (Ventajas, Funcionalidades, EstiloVida, Receta).
+ * Generar QRs en las escenas que los tengan
  */
 function generateAllQRCodes() {
-  const scenes = ['Ventajas', 'Funcionalidades', 'EstiloVida', 'Receta'];
-  scenes.forEach(scene => {
+  // Nuevo link con utms, etc.
+  const newLink = "https://www.blackanddeckercolombia.com/licuadora-black-decker-digital-potente-1-5l-bl0976-1mdla/p?utm_source=google&utm_medium=cpc_pmax&utm_campaign=sisr_prueba&utm_content=pmax&gad_source=1&gclid=CjwKCAiAtYy9BhBcEiwANWQQL4cxgaTZSOXOa7rachiGUWP6spsbMFw7u3ZsZBoRSS4CnyQrye4mSRoCiYQQAvD_BwE";
+
+  ['Ventajas','Funcionalidades','EstiloVida','Receta'].forEach(scene => {
     const qrDiv = document.getElementById(`qr${scene}`);
     if (qrDiv) {
       new QRCode(qrDiv, {
-        text: 'https://www.blackanddeckercolombia.com/licuadora-black-decker-digital-potente-1-5l-bl0976-1mdla/',
-        width: 100,
-        height: 100
+        text: newLink,
+        width: 200,
+        height: 200
       });
     }
   });
 }
 
 /**
- * Resetea el timer de inactividad en cada interacción.
+ * Resetea el timer de inactividad según la escena actual
  */
 function resetInactivityTimer() {
   if (inactivityTimer) {
     clearTimeout(inactivityTimer);
   }
-  // Aquí podríamos iniciar otro timeout global si quieres 
-  // que invariablemente tras 15s se regrese a intro, 
-  // pero en este ejemplo solo se inicia tras terminar un video.
+
+  const timeLimit = SCENE_INACTIVITY_LIMITS[currentScene] || 15000;
+  inactivityTimer = setTimeout(() => {
+    goToIntro();
+  }, timeLimit);
 }
 
 /**
- * Vuelve a la escena 1 manualmente (sin recargar la página).
+ * Regresa a escena1 con audio (si el navegador lo permite)
  */
 function goToIntro() {
-  // Ocultar todas las escenas y mostrar la 1
-  document.querySelectorAll('.escena').forEach(e => e.classList.remove('active'));
-  document.getElementById('escena1').classList.add('active');
+  pauseAllVideos();
 
-  // Reiniciar video intro (en silencio, por política de autoplay)
+  // Ocultar todas las escenas
+  document.querySelectorAll('.escena').forEach(e => e.classList.remove('active'));
+
+  // Mostrar Escena1
+  document.getElementById('escena1')?.classList.add('active');
+  currentScene = 'escena1';
+
+  // Forzar reproducción del introVideo con audio
   const introVideo = document.getElementById('introVideo');
-  introVideo.currentTime = 0;
-  introVideo.play().catch(err => console.warn(err));
+  if (introVideo) {
+    introVideo.currentTime = 0;
+    introVideo.play().catch(err => console.warn('Autoplay con audio bloqueado:', err));
+  }
+
+  resetInactivityTimer();
 }
