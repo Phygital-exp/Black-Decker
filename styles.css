@@ -121,7 +121,7 @@ video {
   bottom: 5%;
   width: 90%;
   left: 50%;
-  transform: translateX(-100%);
+  transform: translateX(-50%);
   color: #fff;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
