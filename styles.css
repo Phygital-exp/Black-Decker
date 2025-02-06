@@ -115,12 +115,13 @@ video {
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
+/* Versión 2 del overlay (para escena Estilo de Vida) */
 .overlay-content2 {
   position: absolute;
   bottom: 5%;
   width: 90%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-100%);
   color: #fff;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
@@ -129,13 +130,15 @@ video {
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
-.overlay-content h2 {
+.overlay-content h2,
+.overlay-content2 h2 {
   margin-bottom: 10px;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
 
-.overlay-content p {
+.overlay-content p,
+.overlay-content2 p {
   font-size: 1rem;
   line-height: 1.4;
   margin: 10px 0;
@@ -157,19 +160,18 @@ video {
   background: rgba(255,79,79,1);
 }
 
-/* Contenedor y estilo del QR */
-/* Aquí definimos un tamaño mayor para que sea más legible */
+/* Contenedor del QR en Estilo de vida */
+/* (Usamos position absolute si quieres moverlo a la derecha) */
 .qr-container {
-  position: absolute;   /* Antes estaba sin position */
-  right: 30px;          /* Ajusta el valor según quieras */
-  bottom: 40px;         /* O top: 10px, según prefieras */
-  margin: 0;            /* Para evitar márgenes que te descuadren */
-  /* Tamaño del QR */
+  position: absolute;
+  right: 30px;     
+  bottom: 40px;    
+  margin: 0;
   width: 150px;
   height: 150px;
 }
 
-
+/* Si usas QRCode.js en otras escenas, el contenedor con ID #qrVentajas, etc. */
 .qr-code {
   margin: 0 auto 10px auto;
 }
