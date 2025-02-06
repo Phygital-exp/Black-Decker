@@ -9,14 +9,16 @@
                  user-scalable=no, 
                  viewport-fit=cover" />
   <title>Experiencia Black+Decker Digits</title>
-<link rel="icon" href="https://s3.amazonaws.com/botgen/Uploads/blackdecker_1738753816.png" type="image/png">
+  <link rel="icon" 
+        href="https://s3.amazonaws.com/botgen/Uploads/blackdecker_1738753816.png" 
+        type="image/png">
   <!-- Estilos CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
 
-    <!-- ESCENA 1 - Intro (video con audio, sin muted) -->
+    <!-- ESCENA 1 - Intro (video con audio) -->
     <div class="escena active" id="escena1">
       <video id="introVideo" autoplay loop playsinline>
         <source src="https://s3.amazonaws.com/botgen/Uploads/principal_1738754751.mp4" type="video/mp4">
@@ -25,7 +27,7 @@
       <button class="btn-experiencia" id="btnIniciar">Vivir la experiencia</button>
     </div>
 
-    <!-- ESCENA 2 - Menú principal (con imagen de fondo) -->
+    <!-- ESCENA 2 - Menú principal (imagen de fondo) -->
     <div class="escena" id="escena2">
       <div class="grid-botones">
         <button class="grid-btn" data-target="ventajas">Ventajas del producto</button>
@@ -38,43 +40,50 @@
     <!-- ESCENA 3 - Ventajas del producto -->
     <div class="escena" id="ventajas">
       <video id="videoVentajas" playsinline>
-        <source src="https://s3.amazonaws.com/botgen/Uploads/escena21ventaja_1738750430.mp4" type="video/mp4">
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena21_1738872090.mp4" type="video/mp4">
       </video>
       <div class="overlay-content">
         <h2>Ventajas del producto</h2>
         <!-- Botón "Volver" para regresar al menú (Escena 2) -->
         <button class="btn-volver">Volver</button>
+        <!-- Contenedor de QR generado dinámicamente -->
+        <div class="qr-code" id="qrVentajas"></div>
       </div>
     </div>
 
     <!-- ESCENA 4 - Funcionalidades -->
     <div class="escena" id="funcionalidades">
       <video id="videoFuncionalidades" playsinline>
-        <source src="https://s3.amazonaws.com/botgen/Uploads/escena22funcionalidades_1738750629.mp4" type="video/mp4">
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena222_1738872269.mp4" type="video/mp4">
       </video>
       <div class="overlay-content">
         <h2>Funcionalidades</h2>
         <button class="btn-volver">Volver</button>
+        <!-- Contenedor de QR generado dinámicamente -->
+        <div class="qr-code" id="qrFuncionalidades"></div>
       </div>
     </div>
 
     <!-- ESCENA 5 - Estilo de vida -->
     <div class="escena" id="estiloVida">
       <video id="videoEstiloVida" playsinline>
-        <source src="https://s3.amazonaws.com/botgen/Uploads/escena23estilo_1738750880.mp4" type="video/mp4">
+        <source src="https://s3.amazonaws.com/botgen/Uploads/escena232_1738871740.mp4" type="video/mp4">
       </video>
+      <!-- overlay-content2 para este layout específico -->
       <div class="overlay-content2">
         <h2>Estilo de vida</h2>
+        <!-- Aquí usamos la imagen estática de QR en lugar de QRCode.js -->
         <div class="qr-container">
-          <!-- QR para más info -->
-          <div class="qr-code" id="qrEstiloVida"></div>
+          <img src="https://s3.amazonaws.com/botgen/Uploads/qrb_1738871015.png"
+               alt="QR code"
+               style="width:150px; height:150px;" />
           <p>Leer QR</p>
         </div>
         <button class="btn-volver">Volver</button>
       </div>
     </div>
 
-    <!-- ESCENA 6 - Receta sorpresa -->
+    <!-- ESCENA 6 - Receta -->
     <div class="escena" id="receta">
       <video id="videoReceta" playsinline>
         <source src="https://s3.amazonaws.com/botgen/Uploads/escena24receta1_1738759614.mp4" type="video/mp4">
@@ -82,6 +91,8 @@
       <div class="overlay-content">
         <h2>Receta</h2>
         <button class="btn-volver">Volver</button>
+        <!-- Contenedor de QR generado dinámicamente -->
+        <div class="qr-code" id="qrReceta"></div>
       </div>
     </div>
 
