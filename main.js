@@ -6,7 +6,7 @@
 
 // 1. Definir los tiempos de inactividad para cada escena (en milisegundos).
 const SCENE_INACTIVITY_LIMITS = {
-  escena1: 55000,   // Intro: 55s
+  escena1: 44000,   // Intro: 44s
   escena2: 13000,   // Menú: 13s
   ventajas: 70000,  // Ventajas: 70s
   funcionalidades: 63000, // Funcionalidades: 63s
