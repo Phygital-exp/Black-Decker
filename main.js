@@ -6,12 +6,12 @@
 
 // 1. Definir los tiempos de inactividad para cada escena (en milisegundos).
 const SCENE_INACTIVITY_LIMITS = {
-  escena1: 55000,         // 55 seg en la intro
-  escena2: 15000,         // 15 seg menú
-  ventajas: 70000,        // 70 seg Ventajas
-  funcionalidades: 65000, // 65 seg Funcionalidades
-  estiloVida: 30000,      // 30 seg Estilo de vida
-  receta: 70000           // 70 seg Receta
+  escena1: 55000,   // Intro: 55s
+  escena2: 15000,   // Menú: 15s
+  ventajas: 70000,  // Ventajas: 70s
+  funcionalidades: 65000, // Funcionalidades: 65s
+  estiloVida: 30000,// Estilo de vida: 30s
+  receta: 70000     // Receta: 70s
 };
 
 // 2. Variables globales
@@ -19,7 +19,7 @@ let inactivityTimer = null;
 let currentScene = 'escena1'; // Empezamos en escena1
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Intentar reproducir con audio en la Escena 1 (puede ser bloqueado en algunos navegadores).
+  // Intentar reproducir con audio en la Escena 1
   const introVideo = document.getElementById('introVideo');
   if (introVideo) {
     introVideo.play().catch(err => console.warn('Autoplay con audio bloqueado:', err));
@@ -109,7 +109,9 @@ function generateAllQRCodes() {
   // Nuevo link con utms, etc.
   const newLink = "https://www.blackanddeckercolombia.com/licuadora-black-decker-digital-potente-1-5l-bl0976-1mdla/p?utm_source=google&utm_medium=cpc_pmax&utm_campaign=sisr_prueba&utm_content=pmax&gad_source=1&gclid=CjwKCAiAtYy9BhBcEiwANWQQL4cxgaTZSOXOa7rachiGUWP6spsbMFw7u3ZsZBoRSS4CnyQrye4mSRoCiYQQAvD_BwE";
 
-  ['Ventajas','Funcionalidades','EstiloVida','Receta'].forEach(scene => {
+  // Escenas donde SÍ usamos QRCode.js
+  // (omitir 'EstiloVida', porque allí tenemos un QR .png estático)
+  ['Ventajas','Funcionalidades','Receta'].forEach(scene => {
     const qrDiv = document.getElementById(`qr${scene}`);
     if (qrDiv) {
       new QRCode(qrDiv, {
