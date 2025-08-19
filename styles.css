@@ -118,7 +118,7 @@ video {
 /* Versión 2 del overlay (para escena Estilo de Vida) */
 .overlay-content2 {
   position: absolute;
-  bottom: 5%;
+  bottom: 20%;
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
@@ -175,6 +175,7 @@ video {
 .qr-code {
   margin: 0 auto 10px auto;
 }
+
 
 
 
